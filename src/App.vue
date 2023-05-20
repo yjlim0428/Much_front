@@ -1,16 +1,23 @@
 <script setup>
 import { computed } from "vue";
-
 import DefaultLayout from "@/components/layout/DefaultLayout.vue";
+import DefaultEmptyLayout from "@/components/layout/DefaultEmptyLayout.vue";
+import { useRoute } from "vue-router";
 
-// const layoutComputed = computed(() => {
-//   const
-//   return
-// })
+const route = useRoute();
+
+const layoutComputed = computed(() => {
+  return route.meta.layout === "empty" ? DefaultEmptyLayout : DefaultLayout;
+});
 </script>
 
 <template>
-  <Component :is="DefaultLayout" />
+  <Component :is="layoutComputed" />
 </template>
 
-<style scoped></style>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+</style>
