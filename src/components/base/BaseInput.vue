@@ -44,7 +44,7 @@ const props = defineProps({
     border: 1px solid red;
     display: flex;
     &--input {
-      width: 240px;
+      /* width: 240px; */
     }
   }
 }
