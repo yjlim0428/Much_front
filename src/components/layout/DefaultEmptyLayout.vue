@@ -1,5 +1,12 @@
 <script setup></script>
 <template>
-  <router-view />
+  <main>
+    <router-view />
+  </main>
 </template>
-<style lang="scss"></style>
+<style lang="scss">
+main {
+  /* border: 1px solid red; */
+  overflow-y: auto;
+}
+</style>

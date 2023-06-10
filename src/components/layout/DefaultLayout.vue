@@ -9,6 +9,7 @@ import DefaultHeader from "./DefaultHeader.vue";
 </template>
 <style scoped lang="scss">
 main {
-  height: calc(100vh - 61px);
+  /* min-height: calc(100vh - 61px); */
+  overflow-y: auto;
 }
 </style>
