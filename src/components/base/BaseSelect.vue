@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from "vue";
 
+const modelValue = defineModel();
+
 const props = defineProps({
   label: {
     type: String,
@@ -38,16 +40,16 @@ const cssProps = computed(() => {
   <div class="selectbox" :style="cssProps">
     <slot name="label" />
     <el-select
-      v-model="value"
+      v-model="modelValue"
       class="m-2"
       :placeholder="placeholder"
       size="large"
     >
       <el-option
         v-for="item in dataList"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value"
+        :key="item.code"
+        :label="item.name"
+        :value="item.code"
       />
     </el-select>
   </div>

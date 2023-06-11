@@ -39,7 +39,7 @@ const cssProps = computed(() => {
 <template>
   <div class="inputbox" :style="cssProps">
     <slot name="label" />
-    <el-input v-model="modelValue" :placeholder="placeholder" />
+    <el-input v-model="modelValue" :placeholder="placeholder" :type="type" />
     <slot name="button" />
     <slot name="bottomtext" />
   </div>

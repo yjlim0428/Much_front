@@ -12,7 +12,14 @@ const layoutComputed = computed(() => {
 </script>
 
 <template>
-  <Component :is="layoutComputed" />
+  <Suspense>
+    <template #default>
+      <Component :is="layoutComputed" />
+    </template>
+    <template #fallback>
+      <div>loading....</div>
+    </template>
+  </Suspense>
 </template>
 
 <style lang="scss">

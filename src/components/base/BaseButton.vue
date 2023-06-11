@@ -21,6 +21,10 @@ const props = defineProps({
     type: Number,
     default: 40,
   },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(["onClick"]);
@@ -35,7 +39,12 @@ const cssProps = computed(() => {
 });
 </script>
 <template>
-  <button class="base-button" :style="cssProps" @click="emit('onClick')">
+  <button
+    class="base-button"
+    :style="cssProps"
+    @click="emit('onClick')"
+    :disabled="disabled"
+  >
     {{ label }}
   </button>
 </template>
@@ -54,6 +63,10 @@ const cssProps = computed(() => {
   &:hover {
     /* transition: background-color;
     background-color: #f6f6ff; */
+  }
+  &:disabled {
+    color: lightgray;
+    border: 1px solid lightgray;
   }
 }
 </style>
