@@ -4,6 +4,11 @@ import { computed } from "vue";
 const props = defineProps({
   label: {
     type: String,
+    default: null,
+  },
+  required: {
+    type: Boolean,
+    default: false,
   },
   placeholder: {
     type: String,
@@ -38,7 +43,12 @@ const cssProps = computed(() => {
 </script>
 <template>
   <div class="inputbox" :style="cssProps">
-    <slot name="label" />
+    <template v-if="label">
+      <div :class="!required ? 'inputbox__label' : 'inputbox__label--required'">
+        {{ label }}
+      </div>
+    </template>
+
     <el-input v-model="modelValue" :placeholder="placeholder" :type="type" />
     <slot name="button" />
     <slot name="bottomtext" />
@@ -46,6 +56,17 @@ const cssProps = computed(() => {
 </template>
 <style lang="scss" scoped>
 .inputbox {
+  &__label {
+    font-size: 12px;
+    margin-bottom: 5px;
+    background-color: red;
+
+    /* &--required::before {
+      content: "\002A"+ " ";
+      color: #ff636c;
+    } */
+  }
+
   & :deep() {
     .el-input {
       width: var(--width);

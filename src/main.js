@@ -16,5 +16,6 @@ app.use(router);
 app.use(pinia);
 app.use(ElementPlus);
 app.config.globalProperties.$_ = _;
+app.config.globalProperties.$apiClient = apiClient;
 
 app.mount("#app");

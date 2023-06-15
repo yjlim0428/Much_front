@@ -4,8 +4,10 @@ import { BaseInput, BaseButton, BaseSelect } from "@/components/base";
 import logo from "@/assets/logo.svg";
 import apiClient from "@/service/config";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
 
 const router = useRouter();
+const authStore = useAuthStore();
 
 const classList = [
   { code: "하수", name: "하수" },
@@ -159,9 +161,15 @@ async function singup() {
     positionClass: inputs.class,
   });
 
-  console.log("submit>>>", { code, message, result });
   if (code === 200) {
-    // router.push('/');
+    alert("회원가입을 완료하였습니다.");
+    await authStore.login({
+      accessToken: result.accessToken,
+      refreshToken: result.refreshToken,
+    });
+    router.push("/");
+  } else {
+    alert(message);
   }
 }
 
@@ -189,12 +197,18 @@ watchEffect(() => {
 
     <!-- 아이디 -->
     <div class="wrapper">
-      <BaseInput v-model="inputs.id" :width="240" :placeholder="'아이디 입력'">
-        <template #label>
+      <BaseInput
+        :label="'아이디'"
+        :required="true"
+        v-model="inputs.id"
+        :width="240"
+        :placeholder="'아이디 입력'"
+      >
+        <!-- <template #label>
           <div class="label">
             <spna class="label__text--required">아이디</spna>
           </div>
-        </template>
+        </template> -->
         <template #button>
           <BaseButton :label="'중복 확인'" @onClick="getIdVaildation" />
         </template>
@@ -350,7 +364,7 @@ watchEffect(() => {
     }
     margin-bottom: 33px;
 
-    & .label {
+    /* & .label {
       font-size: 12px;
       margin-bottom: 5px;
       &__text {
@@ -359,7 +373,7 @@ watchEffect(() => {
           color: #ff636c;
         }
       }
-    }
+    } */
   }
 
   & > .logo {

@@ -8,23 +8,36 @@ export const useAuthStore = defineStore(
       username: "",
     });
 
+    const token = reactive({
+      accessToken: "",
+      refreshToken: "",
+    });
+
     function isLoggedIn() {
       // user 안에 user id 있는지 검사
     }
 
-    async function setLoginUser() {
-      const token = localStorage.getItem("accessToken");
+    async function setLoginUser(token) {
+      // userdata = 토큰 디코딩한 값
       if (token) {
-        // 토큰 디코딩 -> user 에 데이터 저장
+        // user.username = userdata.~~
       }
     }
 
     function login(token) {
-      const { accessToken, refreshToken } = token;
+      setToken(token);
+      setLocalStorage(token);
+      setLoginUser(token);
+    }
 
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
-      setLoginUser();
+    function setToken(token) {
+      token.accessToken = token.accessToken;
+      token.refreshToken = token.refreshToken;
+    }
+
+    function setLocalStorage({ token }) {
+      localStorage.setItem("accessToken", token.accessToken);
+      localStorage.setItem("refreshToken", token.refreshToken);
     }
 
     function resetLocalStorage() {
@@ -38,8 +51,10 @@ export const useAuthStore = defineStore(
 
     return {
       user,
+      token,
       isLoggedIn,
       setLoginUser,
+      setToken,
       login,
       resetLocalStorage,
       logout,
@@ -48,7 +63,7 @@ export const useAuthStore = defineStore(
   {
     persist: [
       {
-        paths: ["user"],
+        paths: ["token"],
         storage: localStorage,
       },
     ],
